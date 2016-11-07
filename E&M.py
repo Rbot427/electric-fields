@@ -60,10 +60,9 @@ def test_pp_lines(canvas, pp):
 		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
 		theta += math.pi/8
 
-#Broken function, will fix!
 def draw_pp(canvas, pp):
 	rad = pp[RADIUS]
-	canvas.create_oval(rad, rad, pp[PP_X], pp[PP_Y], fill="red", width=2)
+	canvas.create_oval(pp[PP_X]-rad/2, pp[PP_Y]-rad/2, pp[PP_X]+rad/2, pp[PP_Y]+rad/2, fill="red", width=2)
 
 p = createPP(100, 50, 10, 0.000000001)
 root = Tk()
