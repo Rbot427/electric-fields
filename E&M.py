@@ -1,4 +1,5 @@
 from Tkinter import *
+from vectors import *
 import math
 
 E_NAUGHT = 8.854*(10**(-12))
@@ -8,8 +9,6 @@ PP_X = 0
 PP_Y = 1
 RADIUS = 2
 CHARGE = 3
-
-NORM_MAG = 30
 
 def createPP(x, y, r, charge):
 	#Simple error checking
@@ -28,18 +27,6 @@ def e_field_total(x, y, pp_all):
 	for i in pp_all:
 		tot = v2_sum(tot, e_field(x, y, i))
 	return tot
-
-def v2_mag(v):
-	#Error checking
-	return math.sqrt(v[0]**2 + v[1]**2)
-
-def v2_norm(v):
-	#Error checking
-	mag = float(v2_mag(v))
-	return (NORM_MAG*v[0]/mag, NORM_MAG*v[1]/mag)
-
-def v2_sum(v1, v2):
-	return (v1[0] + v2[0], v1[1] + v2[1])
 
 def line_for_v2(v, x, y):
 	#Error checking
@@ -77,9 +64,9 @@ def draw_pp(canvas, pp):
 	canvas.create_oval(pp[PP_X]-rad/2, pp[PP_Y]-rad/2, pp[PP_X]+rad/2, pp[PP_Y]+rad/2, fill="red", width=2)
 
 all_pp = []
-p1 = createPP(100, 50, 10, 0.000000001)
+p1 = createPP(200/3.0, 50, 10, 0.000000001)
 all_pp.append(p1)
-p2 = createPP(150, 50, 10, 0.000000001)
+p2 = createPP(400/3.0, 50, 10, 0.000000001)
 all_pp.append(p2)
 root = Tk()
 w = Canvas(root, width=200, height=100)
