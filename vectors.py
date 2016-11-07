@@ -1,4 +1,5 @@
 import math
+#this is a test comment
 
 NORM_MAG = 2
 
