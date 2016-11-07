@@ -60,14 +60,32 @@ def test_pp_lines(canvas, pp):
 		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
 		theta += math.pi/8
 
+def test_all_pp_lines(canvas, pp_all, target):
+	theta = 0
+	pp = pp_all[target]
+	rad = pp[RADIUS]
+	while theta < 2*math.pi:
+		x = pp[PP_X] + rad*math.cos(theta)
+		y = pp[PP_Y] + rad*math.sin(theta)
+		e = e_field_total(x, y, pp_all)
+		l = line_for_v2(e, x, y)
+		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
+		theta += math.pi/8
+
 def draw_pp(canvas, pp):
 	rad = pp[RADIUS]
 	canvas.create_oval(pp[PP_X]-rad/2, pp[PP_Y]-rad/2, pp[PP_X]+rad/2, pp[PP_Y]+rad/2, fill="red", width=2)
 
-p = createPP(100, 50, 10, 0.000000001)
+all_pp = []
+p1 = createPP(100, 50, 10, 0.000000001)
+all_pp.append(p1)
+p2 = createPP(150, 50, 10, 0.000000001)
+all_pp.append(p2)
 root = Tk()
 w = Canvas(root, width=200, height=100)
-draw_pp(w, p)
+draw_pp(w, p1)
+draw_pp(w, p2)
 w.pack()
-test_pp_lines(w, p)
+test_all_pp_lines(w, all_pp, 0)
+test_all_pp_lines(w, all_pp, 1)
 root.mainloop()
