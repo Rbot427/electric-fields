@@ -1,20 +1,21 @@
 from Tkinter import *
 import math
-import os
 
 E_NAUGHT = 8.854*(10**(-12))
 K = 1/(4*math.pi*E_NAUGHT)
-CHARGE = 3
-RADIUS = 2
+
 PP_X = 0
 PP_Y = 1
+RADIUS = 2
+CHARGE = 3
+
 NORM_MAG = 30
 
 def createPP(x, y, r, charge):
 	#Simple error checking
 	return (x, y, r, charge)
 
-def e_field(x, y, pp): #return a magnitude or components of a vector?
+def e_field(x, y, pp): 
 	"""Returns the electric field at a point from point particle pp"""
 	e_mag = K*pp[CHARGE]/(distance(x, y, pp[PP_X], pp[PP_Y])**2)
 	dx = x - pp[PP_X]
@@ -44,6 +45,7 @@ def line_for_v2(v, x, y):
 	#Error checking
 	return (int(x), int(y), int(v[0]+x), int(v[1]+y))
 
+#I foresee no problems with this function /s
 def distance(x1, y1, x2, y2):
 	return math.sqrt((x1-x2)**2 + (y1-y2)**2)
 
@@ -58,6 +60,7 @@ def test_pp_lines(canvas, pp):
 		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
 		theta += math.pi/8
 
+#Broken function, will fix!
 def draw_pp(canvas, pp):
 	rad = pp[RADIUS]
 	canvas.create_oval(rad, rad, pp[PP_X], pp[PP_Y], fill="red", width=2)
