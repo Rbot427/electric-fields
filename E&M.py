@@ -59,7 +59,7 @@ def test_all_pp_lines(canvas, pp_all, target):
 
 def draw_full_field_line(canvas, pp_all, x, y):
 	c = 0
-	while c < 500:
+	while c < 5000:
 		e = e_field_total(x, y, pp_all)
 		l = line_for_v2(e, x, y)
 		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
@@ -78,20 +78,21 @@ p1 = createPP(600/3.0, 200, 10, 0.000000001)
 all_pp.append(p1)
 p2 = createPP(399, 200, 10, -0.000000001)
 all_pp.append(p2)
-p3 = createPP(150, 75, 10, 0.000000001)
-all_pp.append(p3)
-p4 = createPP(300, 150, 10, 0.000000001)
-all_pp.append(p4)
+#p3 = createPP(150, 75, 10, 0.000000001)
+#all_pp.append(p3)
+#p4 = createPP(300, 150, 10, 0.000000001)
+#all_pp.append(p4)
 root = Tk()
 w = Canvas(root, width=600, height=400)
+w.pack()
+
 draw_pp(w, p1)
 draw_pp(w, p2)
-draw_pp(w, p3)
-draw_pp(w, p4)
-w.pack()
-#draw_full_field_line(w, all_pp, 75, 59)
+#draw_pp(w, p3)
+#draw_pp(w, p4)
+
 test_all_pp_lines(w, all_pp, 0)
 #test_all_pp_lines(w, all_pp, 1)
-test_all_pp_lines(w, all_pp, 2)
-test_all_pp_lines(w, all_pp, 3)
+#test_all_pp_lines(w, all_pp, 2)
+#test_all_pp_lines(w, all_pp, 3)
 root.mainloop()
