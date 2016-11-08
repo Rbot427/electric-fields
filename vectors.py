@@ -18,6 +18,9 @@ def v2_sum(v1, v2):
 def v2_scalar_multiple(s, v):
 	return (v[0]*s, v[1]*s)
 
+def v2_perp(v): #Single direction.  The other way is -v[1], -v[0]
+	return (v[1], -v[0])
+
 def test_v2_norm():
 	v = (0.1, 0.1)
 	print v2_norm(v)
