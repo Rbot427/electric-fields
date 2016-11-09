@@ -85,7 +85,7 @@ all_pp.append(p2)
 root = Tk()
 w = Canvas(root, width=600, height=400)
 w.pack()
-
+#Test
 draw_pp(w, p1)
 draw_pp(w, p2)
 #draw_pp(w, p3)
