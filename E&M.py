@@ -1,5 +1,6 @@
 from Tkinter import *
 from vectors import *
+from visuals import *
 import math
 
 E_NAUGHT = 8.854*(10**(-12))
@@ -9,10 +10,6 @@ PP_X = 0
 PP_Y = 1
 RADIUS = 2
 CHARGE = 3
-
-ARROW_DISTANCE = 30 #Measured in pixels
-ARROW_LENGTH = 2
-ARROW_BODY_LENGTH = 5
 
 def createPP(x, y, r, charge):
 	#Simple error checking
@@ -77,24 +74,13 @@ def draw_full_field_line(canvas, pp_all, x, y):
 			dist = 0
 		c += 1
 
-def draw_arrow(canvas, x, y, v):
-	v_perp = v2_norm(v2_perp(v))
-	canvas.create_line(x, y, (x-v[0]*ARROW_BODY_LENGTH) + ARROW_LENGTH*v_perp[0], (y-v[1]*ARROW_BODY_LENGTH) + ARROW_LENGTH*v_perp[1], fill="red")
-	canvas.create_line(x, y, (x-v[0]*ARROW_BODY_LENGTH) - ARROW_LENGTH*v_perp[0], (y-v[1]*ARROW_BODY_LENGTH) - ARROW_LENGTH*v_perp[1], fill="red")
-
-def draw_pp(canvas, pp):
-	rad = pp[RADIUS]
-	f = "red"
-	if pp[CHARGE] < 0: f = "blue"
-	canvas.create_oval(pp[PP_X]-rad, pp[PP_Y]-rad, pp[PP_X]+rad, pp[PP_Y]+rad, fill=f, width=2)
-
 all_pp = []
 p1 = createPP(600/3.0, 200, 10, 0.000000001)
 all_pp.append(p1)
-p2 = createPP(399, 300, 10, 0.000000001)
+p2 = createPP(399, 50, 10, 0.000000001)
 all_pp.append(p2)
-#p3 = createPP(150, 75, 10, 0.000000001)
-#all_pp.append(p3)
+p3 = createPP(150, 75, 10, -0.000000001)
+all_pp.append(p3)
 #p4 = createPP(300, 150, 10, 0.000000001)
 #all_pp.append(p4)
 root = Tk()
@@ -103,11 +89,11 @@ w.pack()
 #Test
 draw_pp(w, p1)
 draw_pp(w, p2)
-#draw_pp(w, p3)
 #draw_pp(w, p4)
 
 test_all_pp_lines(w, all_pp, 0)
-#test_all_pp_lines(w, all_pp, 1)
+test_all_pp_lines(w, all_pp, 1)
+draw_pp(w, p3)
 #test_all_pp_lines(w, all_pp, 2)
 #test_all_pp_lines(w, all_pp, 3)
 root.mainloop()
