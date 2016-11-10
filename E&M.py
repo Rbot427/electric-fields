@@ -11,6 +11,8 @@ RADIUS = 2
 CHARGE = 3
 
 ARROW_DISTANCE = 30 #Measured in pixels
+ARROW_LENGTH = 2
+ARROW_BODY_LENGTH = 5
 
 def createPP(x, y, r, charge):
 	#Simple error checking
@@ -70,9 +72,15 @@ def draw_full_field_line(canvas, pp_all, x, y):
 		y = y + e[1]
 		dist += v2_mag(e) #Since I normalize, this will always be 2
 		if dist >= ARROW_DISTANCE: 
-			canvas.create_oval(x, y, x + 4, y + 4, fill='red', width=2)
+			#canvas.create_oval(x, y, x + 4, y + 4, fill='red', width=2)
+			draw_arrow(canvas, x, y, e)
 			dist = 0
 		c += 1
+
+def draw_arrow(canvas, x, y, v):
+	v_perp = v2_norm(v2_perp(v))
+	canvas.create_line(x, y, (x-v[0]*ARROW_BODY_LENGTH) + ARROW_LENGTH*v_perp[0], (y-v[1]*ARROW_BODY_LENGTH) + ARROW_LENGTH*v_perp[1], fill="red")
+	canvas.create_line(x, y, (x-v[0]*ARROW_BODY_LENGTH) - ARROW_LENGTH*v_perp[0], (y-v[1]*ARROW_BODY_LENGTH) - ARROW_LENGTH*v_perp[1], fill="red")
 
 def draw_pp(canvas, pp):
 	rad = pp[RADIUS]
