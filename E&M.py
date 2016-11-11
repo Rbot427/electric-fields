@@ -11,6 +11,9 @@ PP_Y = 1
 RADIUS = 2
 CHARGE = 3
 
+W_WIDTH = 600
+W_HEIGHT = 400
+
 def createPP(x, y, r, charge):
 	#Simple error checking
 	return (x, y, r, charge)
@@ -61,30 +64,34 @@ def test_all_pp_lines(canvas, pp_all, target):
 def draw_full_field_line(canvas, pp_all, x, y):
 	c = 0
 	dist = 0
-	while c < 5000:
+	while c < 1000:
 		e = e_field_total(x, y, pp_all)
 		l = line_for_v2(e, x, y)
 		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
 		x = x + e[0]
 		y = y + e[1]
 		dist += v2_mag(e) #Since I normalize, this will always be 2
+		if not inBounds(x,y): return
 		if dist >= ARROW_DISTANCE: 
 			#canvas.create_oval(x, y, x + 4, y + 4, fill='red', width=2)
 			draw_arrow(canvas, x, y, e)
 			dist = 0
 		c += 1
 
+def inBounds(x, y):
+	return (x >= 0 or x <= W_WIDTH) and (y >= 0 or y <= W_HEIGHT)
+
 all_pp = []
 p1 = createPP(600/3.0, 200, 10, 0.000000001)
 all_pp.append(p1)
 p2 = createPP(399, 50, 10, 0.000000001)
 all_pp.append(p2)
-p3 = createPP(150, 75, 10, -0.000000001)
+p3 = createPP(300, 350, 10, -0.000000001)
 all_pp.append(p3)
 #p4 = createPP(300, 150, 10, 0.000000001)
 #all_pp.append(p4)
 root = Tk()
-w = Canvas(root, width=600, height=400)
+w = Canvas(root, width=W_WIDTH, height=W_HEIGHT)
 w.pack()
 #Test
 draw_pp(w, p1)
