@@ -76,7 +76,6 @@ def draw_full_field_line(canvas, pp_all, x, y):
 			#canvas.create_oval(x, y, x + 4, y + 4, fill='red', width=2)
 			draw_arrow(canvas, x, y, e)
 			dist = 0
-<<<<<<< HEAD:E&M.py
 		c += 1
 
 def in_any_pp(x, y, pp_all):
