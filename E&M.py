@@ -71,12 +71,20 @@ def draw_full_field_line(canvas, pp_all, x, y):
 		x = x + e[0]
 		y = y + e[1]
 		dist += v2_mag(e) #Since I normalize, this will always be 2
-		if not inBounds(x,y): return
+		if not inBounds(x,y) or in_any_pp(x, y, pp_all): return
 		if dist >= ARROW_DISTANCE: 
 			#canvas.create_oval(x, y, x + 4, y + 4, fill='red', width=2)
 			draw_arrow(canvas, x, y, e)
 			dist = 0
 		c += 1
+
+def in_any_pp(x, y, pp_all):
+	for pp in pp_all:
+		if inPP(x, y, pp): return True
+	return False
+
+def inPP(x, y, pp):
+	return distance(x, y, pp[PP_X], pp[PP_Y]) <= pp[RADIUS]
 
 def inBounds(x, y):
 	return (x >= 0 or x <= W_WIDTH) and (y >= 0 or y <= W_HEIGHT)
@@ -86,7 +94,7 @@ p1 = createPP(600/3.0, 200, 10, 0.000000001)
 all_pp.append(p1)
 p2 = createPP(399, 50, 10, 0.000000001)
 all_pp.append(p2)
-p3 = createPP(300, 350, 10, -0.000000001)
+p3 = createPP(200, 50, 10, -0.000000001)
 all_pp.append(p3)
 #p4 = createPP(300, 150, 10, 0.000000001)
 #all_pp.append(p4)
