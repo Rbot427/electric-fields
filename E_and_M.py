@@ -73,3 +73,24 @@ def draw_full_field_line(canvas, pp_all, x, y):
 			draw_arrow(canvas, x, y, e)
 			dist = 0
 		c += 1
+
+def get_voltage_at_point(x, y, pp_all):
+	v = 0
+	for pp in pp_all:
+		if distance(x, y, pp[PP_X], pp[PP_Y]) == 0: return None
+		v += K*pp[CHARGE]/distance(x, y, pp[PP_X], pp[PP_Y])
+	return v
+
+#returns a matrix of voltage values at every point
+def get_voltage_matrix(canvas, pp_all):
+	voltage_matrix = [[None for i in range(600)] for j in range(400)]
+	for rowNum in range(len(voltage_matrix)):
+		for colNum in range(len(voltage_matrix[0])):
+			voltage_matrix[rowNum][colNum] = get_voltage_at_point(rowNum, colNum, pp_all)
+	return voltage_matrix
+
+def draw_equipotential_line(canvas, voltage_matrix, voltage):
+	for height in range(len(voltage_matrix) - 1):
+		for width in range(len(voltage_matrix[0])-1):
+			if (voltage_matrix[height][width] != None and voltage_matrix[height][width+1] != None and voltage_matrix[height+1][width] != None) and ((voltage_matrix[height][width] < voltage and voltage_matrix[height][width+1] >= voltage) or (voltage_matrix[height][width] > voltage and voltage_matrix[height][width+1] <= voltage) or(voltage_matrix[height][width] < voltage and voltage_matrix[height+1][width] >= voltage) or (voltage_matrix[height][width] > voltage and voltage_matrix[height+1][width] <= voltage)):
+				canvas.create_line(width, height, width+1, height+1, fill='red')
