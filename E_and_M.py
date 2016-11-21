@@ -78,6 +78,20 @@ def draw_full_field_line(canvas, pp_all, x, y):
 			dist = 0
 		c += 1
 
+def draw_full_EP_line(canvas, pp_all, x, y):
+	c = 0
+	dist = 0
+	while c < 1000:
+		e = e_field_total(x, y, pp_all)
+		e = v2_perp(e)
+		l = line_for_v2(e, x, y)
+		canvas.create_line(l[0], l[1], l[2], l[3], fill='green')
+		x = x + e[0]
+		y = y + e[1]
+		dist += v2_mag(e) #Since I normalize, this will always be 2
+		if not inBounds(x,y) or in_any_pp(x, y, pp_all): return
+		c += 1
+
 def in_any_pp(x, y, pp_all):
 	for pp in pp_all:
 		if inPP(x, y, pp): return True
