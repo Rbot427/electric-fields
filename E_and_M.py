@@ -101,15 +101,16 @@ def get_color_of_equipotential_line(voltage):
 	return 'green'
 
 def draw_equipotential_line(canvas, voltage_matrix, voltage):
+	c = get_color_of_equipotential_line(voltage)
 	for height in range(len(voltage_matrix) - 1):
 		for width in range(len(voltage_matrix[0])-1):
 			if voltage_matrix[height][width] != None:
 				if voltage_matrix[height+1][width]!=None and ((voltage_matrix[height][width] >= voltage and voltage_matrix[height+1][width] <= voltage) or (voltage_matrix[height][width] <= voltage and voltage_matrix[height+1][width] >= voltage)):
 					#deltaV = abs(voltage_matrix[height][width] - voltage_matrix[height+1][width])
-					canvas.create_line(height, width, height+1, width+1, fill=get_color_of_equipotential_line(voltage))
+					canvas.create_line(height, width, height+1, width+1, fill=c)
 				elif voltage_matrix[height][width+1]!=None and ((voltage_matrix[height][width] >= voltage and voltage_matrix[height][width+1] <= voltage) or (voltage_matrix[height][width] <= voltage and voltage_matrix[height][width+1] >= voltage)):
 					#deltaV = abs(voltage_matrix[height][width] - voltage_matrix[height][width+1])
-					canvas.create_line(height, width, height+1, width+1, fill=get_color_of_equipotential_line(voltage))
+					canvas.create_line(height, width, height+1, width+1, fill=c)
 
 def in_any_pp(x, y, pp_all):
 	for pp in pp_all:
