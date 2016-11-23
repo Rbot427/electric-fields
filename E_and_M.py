@@ -12,6 +12,9 @@ RADIUS = 2
 CHARGE = 3
 DELTAV_TOLERANCE = 0.1
 
+W_WIDTH = 600
+W_HEIGHT = 400
+
 def createPP(x, y, r, charge):
 	#Simple error checking
 	return (x, y, r, charge)
@@ -62,18 +65,20 @@ def test_all_pp_lines(canvas, pp_all, target):
 def draw_full_field_line(canvas, pp_all, x, y):
 	c = 0
 	dist = 0
-	while c < 5000:
+	while c < 1000:
 		e = e_field_total(x, y, pp_all)
 		l = line_for_v2(e, x, y)
 		canvas.create_line(l[0], l[1], l[2], l[3], fill='blue')
 		x = x + e[0]
 		y = y + e[1]
 		dist += v2_mag(e) #Since I normalize, this will always be 2
+		if not inBounds(x,y) or in_any_pp(x, y, pp_all): return
 		if dist >= ARROW_DISTANCE: 
 			#canvas.create_oval(x, y, x + 4, y + 4, fill='red', width=2)
 			draw_arrow(canvas, x, y, e)
 			dist = 0
 		c += 1
+
 
 def get_voltage_at_point(x, y, pp_all):
 	v = 0
@@ -105,3 +110,15 @@ def draw_equipotential_line(canvas, voltage_matrix, voltage):
 				elif voltage_matrix[height][width+1]!=None and ((voltage_matrix[height][width] >= voltage and voltage_matrix[height][width+1] <= voltage) or (voltage_matrix[height][width] <= voltage and voltage_matrix[height][width+1] >= voltage)):
 					#deltaV = abs(voltage_matrix[height][width] - voltage_matrix[height][width+1])
 					canvas.create_line(height, width, height+1, width+1, fill=get_color_of_equipotential_line(voltage))
+
+def in_any_pp(x, y, pp_all):
+	for pp in pp_all:
+		if inPP(x, y, pp): return True
+	return False
+
+def inPP(x, y, pp):
+	return distance(x, y, pp[PP_X], pp[PP_Y]) <= pp[RADIUS]
+
+def inBounds(x, y):
+	return (x >= 0 or x <= W_WIDTH) and (y >= 0 or y <= W_HEIGHT)
+

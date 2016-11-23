@@ -2,7 +2,7 @@ from Tkinter import *
 from vectors import *
 
 ARROW_DISTANCE = 100 #Measured in pixels
-ARROW_LENGTH = 2
+ARROW_LENGTH = 3
 ARROW_BODY_LENGTH = 5
 
 PP_X = 0
