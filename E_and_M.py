@@ -88,7 +88,7 @@ def get_voltage_at_point(x, y, pp_all):
 	return v
 
 #returns a matrix of voltage values at every point
-def get_voltage_matrix(canvas, pp_all):
+def get_voltage_matrix(pp_all):
 	voltage_matrix = [[None for i in range(600)] for j in range(400)]
 	for rowNum in range(len(voltage_matrix)):
 		for colNum in range(len(voltage_matrix[0])):
